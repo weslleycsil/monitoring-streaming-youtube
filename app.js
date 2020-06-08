@@ -1,6 +1,8 @@
-const {app, BrowserWindow} = require('electron') // http://electronjs.org/docs/api
+const {app, BrowserWindow, ipcMain} = require('electron') // http://electronjs.org/docs/api
 const path = require('path') // https://nodejs.org/api/path.html
 const url = require('url') // https://nodejs.org/api/url.html
+
+var ping = require('./ping') 
 
 let window = null
 
@@ -15,7 +17,10 @@ app.once('ready', () => {
     // Don't show the window until it ready, this prevents any white flickering
     show: false,
     // Don't allow the window to be resized.
-    resizable: false
+    resizable: false,
+    webPreferences: {
+        nodeIntegration: true,
+    }
   })
 
   // Load a URL in the window to the local index.html path
@@ -29,4 +34,19 @@ app.once('ready', () => {
   window.once('ready-to-show', () => {
     window.show()
   })
+
+    ipcMain.on('request-info-hosts', (event, arg) => {
+        console.log("Recebido Hosts para solicitar infos",arg);
+        var results = ping(arg);
+        Promise.all(results)
+        .then(resultads =>{
+            var resultados = [];
+            resultads.forEach(host => {
+                resultados.push(host)
+            });
+            window.webContents.send('newDados',resultados);
+            //console.log(resultados)
+        })
+    });
+
 })

@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron app.js"
+    "start": "electron app.js",
+    "reload": "live-reload ./ --port 35729"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,7 @@
     "jjg-ping": "^1.0.3"
   },
   "devDependencies": {
-    "electron": "^9.0.2"
+    "electron": "^9.0.2",
+    "live-reload": "^1.1.0"
   }
 }
