@@ -22,7 +22,7 @@
     "jjg-ping": "^1.0.3"
   },
   "devDependencies": {
-    "electron": "^9.0.2",
+    "electron": "^9.4.0",
     "live-reload": "^1.1.0"
   }
 }
